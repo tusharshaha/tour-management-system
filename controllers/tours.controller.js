@@ -1,6 +1,6 @@
 const tourServices = require("../services/tours.services");
 
-module.exports.getTours = async (req, res) => {
+module.exports.getTours = async (req, res, next) => {
     try {
         let filters = { ...req.query };
         const excludeFields = ["sort", "fields", "limit", "page"];
@@ -31,7 +31,7 @@ module.exports.getTours = async (req, res) => {
             tours: result
         })
     } catch (err) {
-
+        next(err)
     }
 }
 

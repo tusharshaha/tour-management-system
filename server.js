@@ -1,6 +1,7 @@
 const express = require("express");
 const toursRoute = require("./routes/v1/tours.route");
 const dbConnect = require("./utils/dbConnect");
+const globalErrorHandler = require("./middlewares/globalErrorHandler");
 const cors = require("cors");
 require("dotenv").config();
 require("colors");
@@ -11,6 +12,9 @@ app.use(cors());
 
 // connect database
 dbConnect()
+
+// global error handler
+app.use(globalErrorHandler);
 
 app.get("/", (req, res) => {
     res.send("server working")
