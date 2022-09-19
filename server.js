@@ -1,12 +1,16 @@
 const express = require("express");
+const toursRoute = require("./routes/v1/tours.route");
+const dbConnect = require("./utils/dbConnect");
 const cors = require("cors");
 require("dotenv").config();
+require("colors");
 const PORT = process.env.PORT || 5000;
-const toursRoute = require("./routes/v1/tours.route");
 
 const app = express();
 app.use(cors());
 
+// connect database
+dbConnect()
 
 app.get("/", (req, res) => {
     res.send("server working")
@@ -27,5 +31,5 @@ app.all("*", (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT}/`)
+    console.log(`http://localhost:${PORT}/`.bgYellow)
 })
