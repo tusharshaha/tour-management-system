@@ -21,6 +21,20 @@ module.exports.getTourByIdService = async (id) => {
     return tour
 }
 
+module.exports.getTrendingTourService = async () => {
+    const result = await Tours.find({})
+        .sort({ hitPoint: -1 })
+        .limit(3);
+    return result
+}
+
+module.exports.getCheapestTourService = async () => {
+    const result = await Tours.find({})
+        .sort({ price: -1 })
+        .limit(3);
+    return result
+}
+
 module.exports.createTourService = async (tour) => {
     return await Tours.create(tour, { runValidators: true });
 }

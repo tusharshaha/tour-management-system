@@ -51,6 +51,32 @@ module.exports.getTourById = async (req, res, next) => {
     }
 }
 
+module.exports.getTrendingTour = async (req, res, next) => {
+    try {
+        const result = await tourServices.getTrendingTourService();
+        res.status(200).json({
+            success: true,
+            message: "success",
+            tours: result
+        })
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports.getCheapestTour = async (req, res, next) => {
+    try {
+        const result = await tourServices.getCheapestTourService();
+        res.status(200).json({
+            success: true,
+            message: "success",
+            tours: result
+        })
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports.createTour = async (req, res, next) => {
     try {
         await tourServices.createTourService(req.body);
@@ -60,5 +86,13 @@ module.exports.createTour = async (req, res, next) => {
         })
     } catch (err) {
         next(err);
+    }
+}
+
+module.exports.updateTour = async (req, res, next) => {
+    try {
+
+    } catch (err) {
+        next(err)
     }
 }
