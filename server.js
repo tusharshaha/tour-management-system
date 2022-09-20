@@ -13,8 +13,7 @@ app.use(cors());
 // connect database
 dbConnect()
 
-// global error handler
-app.use(globalErrorHandler);
+
 
 app.get("/", (req, res) => {
     res.send("server working")
@@ -34,6 +33,16 @@ app.all("*", (req, res) => {
     `)
 })
 
-app.listen(PORT, () => {
+// global error handler
+app.use(globalErrorHandler);
+
+const server = app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}/`.bgYellow)
 })
+
+// handle globaly unhandle Rejection
+process.on("unhandledRejection", (error) => {
+    server.close(() => {
+        process.exit(1);
+    });
+});
