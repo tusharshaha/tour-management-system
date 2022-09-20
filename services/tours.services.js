@@ -38,3 +38,11 @@ module.exports.getCheapestTourService = async () => {
 module.exports.createTourService = async (tour) => {
     return await Tours.create(tour, { runValidators: true });
 }
+
+module.exports.updateTourService = async (id, body) => {
+    return await Tours.updateOne(
+        { _id: id },
+        body,
+        { runValidators: true }
+    )
+}

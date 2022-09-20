@@ -91,7 +91,12 @@ module.exports.createTour = async (req, res, next) => {
 
 module.exports.updateTour = async (req, res, next) => {
     try {
-
+        const id = req.query.id;
+        await tourServices.updateTourService(id, req.body);
+        res.status(200).json({
+            success: true,
+            message: "success",
+        })
     } catch (err) {
         next(err)
     }
