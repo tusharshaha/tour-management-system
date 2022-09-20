@@ -37,7 +37,7 @@ module.exports.getTours = async (req, res, next) => {
 
 module.exports.getTourById = async (req, res, next) => {
     try {
-        const result = await tourServices.getTourByIdService(req.query.id);
+        const result = await tourServices.getTourByIdService(req.params.id);
         if (result) {
             result.hitPoint += 1;
         }
@@ -91,7 +91,7 @@ module.exports.createTour = async (req, res, next) => {
 
 module.exports.updateTour = async (req, res, next) => {
     try {
-        const id = req.query.id;
+        const id = req.params.id;
         await tourServices.updateTourService(id, req.body);
         res.status(200).json({
             success: true,

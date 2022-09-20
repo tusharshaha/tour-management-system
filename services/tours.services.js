@@ -30,13 +30,13 @@ module.exports.getTrendingTourService = async () => {
 
 module.exports.getCheapestTourService = async () => {
     const result = await Tours.find({})
-        .sort({ price: -1 })
+        .sort({ price: 1 })
         .limit(3);
     return result
 }
 
 module.exports.createTourService = async (tour) => {
-    return await Tours.create(tour, { runValidators: true });
+    return await Tours.create(tour);
 }
 
 module.exports.updateTourService = async (id, body) => {
