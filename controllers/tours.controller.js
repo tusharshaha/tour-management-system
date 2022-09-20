@@ -24,7 +24,7 @@ module.exports.getTours = async (req, res, next) => {
             query.skip = (page - 1) * parseInt(limit);
             query.limit = limit;
         }
-        const result = await tourServices.getProductServices(filters, query);
+        const result = await tourServices.getTourService(filters, query);
         res.status(200).json({
             success: true,
             message: "success",
@@ -35,10 +35,30 @@ module.exports.getTours = async (req, res, next) => {
     }
 }
 
-module.exports.createTour = async (req, res) => {
-
+module.exports.getTourById = async (req, res, next) => {
+    try {
+        const result = await tourServices.getTourByIdService(req.query.id);
+        if (result) {
+            result.hitPoint += 1;
+        }
+        res.status(200).json({
+            success: true,
+            message: "success",
+            tours: result
+        })
+    } catch (err) {
+        next(err)
+    }
 }
 
-module.exports.getTourById = async (req, res) => {
-
+module.exports.createTour = async (req, res, next) => {
+    try {
+        await tourServices.createTourService(req.body);
+        res.status(200).json({
+            success: true,
+            message: "success",
+        })
+    } catch (err) {
+        next(err);
+    }
 }

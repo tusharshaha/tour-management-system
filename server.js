@@ -2,6 +2,8 @@ const express = require("express");
 const toursRoute = require("./routes/v1/tours.route");
 const dbConnect = require("./utils/dbConnect");
 const globalErrorHandler = require("./middlewares/globalErrorHandler");
+const toursController = require("./controllers/tours.controller");
+const limiter = require("./middlewares/limiter");
 const cors = require("cors");
 require("dotenv").config();
 require("colors");
@@ -19,7 +21,8 @@ app.get("/", (req, res) => {
     res.send("server working")
 })
 
-app.use("/api/v1/tours", toursRoute);
+app.use("/api/v1", toursRoute);
+app.get("/api/v1/tours/:id", limiter, toursController.getTourById)
 
 // catch undefine route
 app.all("*", (req, res) => {
